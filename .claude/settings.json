@@ -1,13 +1,22 @@
 {
-    "permissions": {
-        "allow": [
-            "WebFetch",
-            "mcp__astro-docs__search_astro_docs"
-        ],
-        "deny": [],
-        "ask": []
-    },
-    "enabledMcpjsonServers": [
-        "astro-docs"
+  "permissions": {
+    "allow": ["WebFetch", "mcp__astro-docs__search_astro_docs"],
+    "deny": [],
+    "ask": []
+  },
+  "enabledMcpjsonServers": ["astro-docs"],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm astro check && pnpm exec prettier . --write ",
+            "timeout": 60
+          }
+        ]
+      }
     ]
+  }
 }
