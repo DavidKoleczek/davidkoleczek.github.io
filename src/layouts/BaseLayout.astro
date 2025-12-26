@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { title, description = "David Koleczek" } = Astro.props;
+const siteUrl = "https://davidkoleczek.github.io";
+const imageUrl = `${siteUrl}/me.jpg`;
 ---
 
 <html lang="en">
@@ -18,6 +20,19 @@ const { title, description = "David Koleczek" } = Astro.props;
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
 
     <!-- Theme initialization script - MUST be inline and in head to prevent FOUC -->
     <script is:inline>
