@@ -14,7 +14,7 @@ renderer.link = ({ href, title, text }) => {
 marked.use({ renderer });
 
 const logoWidthNormal = "w-32"; // Company logos
-const logoWidthWide = "w-48"; // Used currently for UMass logos
+const logoWidthWide = "w-54"; // Used currently for UMass logos
 
 // Get bio content
 const bioEntry = await getEntry("bio", "bio");
@@ -65,7 +65,9 @@ const uniqueCategories = [...new Set(allCategories)].sort((a, b) => {
     <Header showPhoto />
 
     <!-- Bio -->
-    <section class="text-gray-700 dark:text-gray-300 space-y-4 [&>p]:mb-0">
+    <section
+      class="text-gray-700 dark:text-gray-300 [&_p]:mb-4 [&_p:last-child]:mb-0"
+    >
       <BioContent />
     </section>
 
