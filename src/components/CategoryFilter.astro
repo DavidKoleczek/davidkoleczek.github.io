@@ -1,0 +1,53 @@
+---
+interface Props {
+  categories: string[];
+  defaultCategory?: string;
+}
+
+const { categories, defaultCategory = "Featured" } = Astro.props;
+
+// Include "All" at the end
+const allCategories = [...categories, "All"];
+
+// Display name overrides for categories
+const displayNames: Record<string, string> = {
+  Publication: "Publications",
+  Patent: "Patents",
+  Project: "Projects",
+};
+
+const getDisplayName = (category: string) => displayNames[category] || category;
+---
+
+<div
+  id="category-filter"
+  role="tablist"
+  aria-label="Filter portfolio items by category"
+  class="flex flex-wrap gap-2 mb-6"
+>
+  {
+    allCategories.map((category) => (
+      <button
+        type="button"
+        role="tab"
+        data-category={category.toLowerCase()}
+        aria-selected={category.toLowerCase() === defaultCategory.toLowerCase()}
+        aria-controls="portfolio-grid"
+        class="px-4 py-1.5 rounded-full text-sm
+               border border-gray-300 dark:border-gray-600
+               text-gray-600 dark:text-gray-400
+               hover:bg-gray-100 dark:hover:bg-gray-800
+               hover:text-gray-900 dark:hover:text-gray-100
+               hover:border-gray-400 dark:hover:border-gray-500
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2
+               dark:focus-visible:ring-offset-gray-900
+               aria-selected:bg-gray-200 dark:aria-selected:bg-gray-700
+               aria-selected:text-gray-900 dark:aria-selected:text-gray-100
+               aria-selected:border-gray-400 dark:aria-selected:border-gray-500
+               transition-colors"
+      >
+        {getDisplayName(category)}
+      </button>
+    ))
+  }
+</div>

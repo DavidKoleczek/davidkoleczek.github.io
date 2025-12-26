@@ -1,18 +1,132 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import PortfolioSection from "../components/PortfolioSection.astro";
+import { getEntry, getCollection, render } from "astro:content";
+import { marked } from "marked";
+
+// Configure marked to open links in new tab
+const renderer = new marked.Renderer();
+renderer.link = ({ href, title, text }) => {
+  const titleAttr = title ? ` title="${title}"` : "";
+  return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer">${text}</a>`;
+};
+marked.use({ renderer });
+
+const logoWidthNormal = "w-32"; // Company logos
+const logoWidthWide = "w-48"; // Used currently for UMass logos
+
+// Get bio content
+const bioEntry = await getEntry("bio", "bio");
+if (!bioEntry) {
+  throw new Error("Bio entry not found");
+}
+const { Content: BioContent } = await render(bioEntry);
+
+// Get timeline entries
+const timelineEntries = await getCollection("timeline");
+
+// Get portfolio entries
+const portfolioEntries = await getCollection("portfolio");
+
+// Sort by date (newest first)
+const sortedPortfolio = portfolioEntries.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+);
+
+// Process portfolio items - render markdown descriptions
+const portfolioItems = await Promise.all(
+  sortedPortfolio.map(async (entry) => ({
+    id: entry.data.id,
+    date: entry.data.date,
+    dateDisplay: entry.data.dateDisplay,
+    categories: entry.data.categories,
+    title: entry.data.title,
+    descriptionHtml: await marked.parse(entry.data.description),
+    link: entry.data.link,
+    image: entry.data.image,
+    imageAlt: entry.data.imageAlt,
+    authors: entry.data.authors,
+    venue: entry.data.venue,
+  })),
+);
+
+// Extract unique categories (Featured first, then alphabetical)
+const allCategories = portfolioItems.flatMap((item) => item.categories);
+const uniqueCategories = [...new Set(allCategories)].sort((a, b) => {
+  if (a.toLowerCase() === "featured") return -1;
+  if (b.toLowerCase() === "featured") return 1;
+  return a.localeCompare(b);
+});
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>David Koleczek's Website</title>
-  </head>
-  <body class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <h1 class="text-4xl font-bold text-gray-800">
-      Under construction. Check back soon.
-    </h1>
-  </body>
-</html>
+<BaseLayout title="David Koleczek">
+  <div class="px-4 py-8 max-w-3xl mx-auto">
+    <Header showPhoto />
+
+    <!-- Bio -->
+    <section class="text-gray-700 dark:text-gray-300 space-y-4 [&>p]:mb-0">
+      <BioContent />
+    </section>
+
+    <!-- Divider -->
+    <hr class="my-6 border-gray-200 dark:border-gray-800" />
+
+    <!-- Timeline -->
+    <section>
+      {
+        timelineEntries.map((entry) => (
+          <div class="flex items-center gap-2">
+            <div class="w-12 sm:w-20 text-sm text-gray-500 text-left sm:text-right shrink-0">
+              {entry.data.dateRange}
+            </div>
+            <div class="relative flex items-center justify-center w-3 self-stretch">
+              <div class="absolute inset-y-0 w-px bg-gray-200 dark:bg-gray-700" />
+              <div class="relative w-3 h-3 rounded-full bg-gray-400 dark:bg-gray-500 shrink-0" />
+            </div>
+            <div class="py-4 ml-2">
+              {entry.data.logoDark ? (
+                <>
+                  <img
+                    src={entry.data.logo}
+                    alt={entry.data.logoAlt}
+                    class={`dark:hidden ${entry.data.logoWidth === "wide" ? logoWidthWide : logoWidthNormal}`}
+                  />
+                  <img
+                    src={entry.data.logoDark}
+                    alt={entry.data.logoAlt}
+                    class={`hidden dark:block ${entry.data.logoWidth === "wide" ? logoWidthWide : logoWidthNormal}`}
+                  />
+                </>
+              ) : (
+                <img
+                  src={entry.data.logo}
+                  alt={entry.data.logoAlt}
+                  class={
+                    entry.data.logoWidth === "wide"
+                      ? logoWidthWide
+                      : logoWidthNormal
+                  }
+                />
+              )}
+              <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1">
+                {entry.data.title}
+              </p>
+              {entry.data.description && (
+                <p class="text-gray-600 dark:text-gray-400 ">
+                  {entry.data.description}
+                </p>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </section>
+
+    <!-- Divider -->
+    <hr class="my-6 border-gray-200 dark:border-gray-800" />
+
+    <!-- Portfolio -->
+    <PortfolioSection items={portfolioItems} categories={uniqueCategories} />
+  </div>
+</BaseLayout>

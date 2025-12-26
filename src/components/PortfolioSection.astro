@@ -1,0 +1,218 @@
+---
+import CategoryFilter from "./CategoryFilter.astro";
+import PortfolioCard from "./PortfolioCard.astro";
+
+interface PortfolioItem {
+  id: string;
+  date: string;
+  dateDisplay?: string;
+  categories: string[];
+  title: string;
+  descriptionHtml: string;
+  link: string;
+  image?: string;
+  imageAlt?: string;
+  authors?: string[];
+  venue?: string;
+}
+
+interface Props {
+  items: PortfolioItem[];
+  categories: string[];
+}
+
+const { items, categories } = Astro.props;
+---
+
+<section aria-labelledby="portfolio-heading">
+  <h2
+    id="portfolio-heading"
+    class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4"
+  >
+    Portfolio
+  </h2>
+  <CategoryFilter categories={categories} />
+
+  <!-- Mobile: single column -->
+  <div
+    id="portfolio-grid-mobile"
+    role="tabpanel"
+    aria-label="Portfolio items"
+    class="flex flex-col gap-6 md:hidden"
+  >
+    {
+      items.map((item, i) => (
+        <div data-order={i}>
+          <PortfolioCard {...item} />
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Desktop: two columns for left-to-right temporal ordering -->
+  <div
+    id="portfolio-grid"
+    role="tabpanel"
+    aria-label="Portfolio items"
+    class="hidden md:flex gap-6"
+  >
+    <div id="portfolio-col-left" class="flex-1 flex flex-col gap-6">
+      {
+        items.map((item, i) => (
+          <div data-order={i}>
+            <PortfolioCard {...item} />
+          </div>
+        ))
+      }
+    </div>
+    <div id="portfolio-col-right" class="flex-1 flex flex-col gap-6"></div>
+  </div>
+</section>
+
+<script>
+  function getHashCategory(): string {
+    const hash = decodeURIComponent(
+      window.location.hash.slice(1),
+    ).toLowerCase();
+    return hash || "featured";
+  }
+
+  function setHashCategory(category: string): void {
+    // Featured uses no hash (default), all other categories use hash
+    const newHash = category === "featured" ? "" : `#${category.toLowerCase()}`;
+    // Use replaceState to avoid polluting browser history
+    history.replaceState(null, "", newHash || window.location.pathname);
+  }
+
+  function filterCards(category: string): void {
+    // Get card wrappers from both mobile and desktop grids
+    const mobileGrid = document.getElementById("portfolio-grid-mobile");
+    const leftCol = document.getElementById("portfolio-col-left");
+    const rightCol = document.getElementById("portfolio-col-right");
+
+    // Filter mobile grid
+    const mobileWrappers =
+      mobileGrid?.querySelectorAll<HTMLElement>("[data-order]") || [];
+    mobileWrappers.forEach((wrapper) => {
+      const card = wrapper.querySelector<HTMLElement>("[data-categories]");
+      if (!card) return;
+      const categories: string[] = JSON.parse(card.dataset.categories || "[]");
+      const normalizedCategories = categories.map((c) => c.toLowerCase());
+      const shouldShow =
+        category === "all" || normalizedCategories.includes(category);
+      wrapper.style.display = shouldShow ? "" : "none";
+    });
+
+    // Filter and rebalance desktop grid
+    const desktopWrappers = [
+      ...(leftCol?.querySelectorAll<HTMLElement>("[data-order]") || []),
+      ...(rightCol?.querySelectorAll<HTMLElement>("[data-order]") || []),
+    ];
+
+    // Determine visibility and collect visible wrappers
+    const visibleWrappers: HTMLElement[] = [];
+    desktopWrappers.forEach((wrapper) => {
+      const card = wrapper.querySelector<HTMLElement>("[data-categories]");
+      if (!card) return;
+      const categories: string[] = JSON.parse(card.dataset.categories || "[]");
+      const normalizedCategories = categories.map((c) => c.toLowerCase());
+      const shouldShow =
+        category === "all" || normalizedCategories.includes(category);
+
+      if (shouldShow) {
+        wrapper.style.display = "";
+        visibleWrappers.push(wrapper);
+      } else {
+        wrapper.style.display = "none";
+      }
+    });
+
+    // Sort visible wrappers by original order
+    visibleWrappers.sort((a, b) => {
+      const orderA = parseInt(a.dataset.order || "0", 10);
+      const orderB = parseInt(b.dataset.order || "0", 10);
+      return orderA - orderB;
+    });
+
+    // Redistribute: even indices to left, odd to right
+    visibleWrappers.forEach((wrapper, i) => {
+      if (i % 2 === 0) {
+        leftCol?.appendChild(wrapper);
+      } else {
+        rightCol?.appendChild(wrapper);
+      }
+    });
+
+    // Move hidden cards to left column (keeps DOM tidy)
+    desktopWrappers.forEach((wrapper) => {
+      if (wrapper.style.display === "none") {
+        leftCol?.appendChild(wrapper);
+      }
+    });
+
+    // Hide/show category labels based on whether we're in a specific category view
+    const shouldShowCategories = category === "all" || category === "featured";
+    document.querySelectorAll("[data-category-label]").forEach((label) => {
+      (label as HTMLElement).style.display = shouldShowCategories ? "" : "none";
+    });
+
+    updateActiveButton(category);
+    announceFilterChange(category);
+  }
+
+  function updateActiveButton(category: string): void {
+    const buttons = document.querySelectorAll<HTMLElement>("[data-category]");
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.category === category;
+      btn.setAttribute("aria-selected", isActive.toString());
+    });
+  }
+
+  function announceFilterChange(category: string): void {
+    // Count visible wrappers from desktop grid (display:none is on wrapper, not card)
+    const leftCol = document.getElementById("portfolio-col-left");
+    const rightCol = document.getElementById("portfolio-col-right");
+    const allWrappers = [
+      ...(leftCol?.querySelectorAll<HTMLElement>("[data-order]") || []),
+      ...(rightCol?.querySelectorAll<HTMLElement>("[data-order]") || []),
+    ];
+    const visibleCount = allWrappers.filter(
+      (w) => w.style.display !== "none",
+    ).length;
+
+    const announcement = document.createElement("div");
+    announcement.setAttribute("role", "status");
+    announcement.setAttribute("aria-live", "polite");
+    announcement.setAttribute("aria-atomic", "true");
+    announcement.className = "sr-only";
+    announcement.textContent = `Showing ${visibleCount} ${category === "all" ? "" : category + " "}item${visibleCount !== 1 ? "s" : ""}`;
+    document.body.appendChild(announcement);
+    setTimeout(() => announcement.remove(), 1000);
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Initial filter based on hash
+    const initialCategory = getHashCategory();
+    filterCards(initialCategory);
+
+    // Handle button clicks
+    document.querySelectorAll("[data-category]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const category = target.dataset.category || "all";
+        setHashCategory(category);
+        filterCards(category);
+
+        // Scroll to portfolio heading to prevent page jumping
+        const heading = document.getElementById("portfolio-heading");
+        heading?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    // Handle browser back/forward
+    window.addEventListener("hashchange", () => {
+      const category = getHashCategory();
+      filterCards(category);
+    });
+  });
+</script>

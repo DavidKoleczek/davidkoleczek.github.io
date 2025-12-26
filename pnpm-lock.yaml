@@ -13,9 +13,15 @@ importers:
       "@tailwindcss/vite":
         specifier: ^4.1.18
         version: 4.1.18(vite@6.4.1(@types/node@24.6.1)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
+      "@types/marked":
+        specifier: ^6.0.0
+        version: 6.0.0
       astro:
         specifier: ^5.16.6
         version: 5.16.6(@types/node@24.6.1)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.52.3)(typescript@5.9.3)(yaml@2.8.2)
+      marked:
+        specifier: ^17.0.1
+        version: 17.0.1
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -1058,6 +1064,13 @@ packages:
       {
         integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==,
       }
+
+  "@types/marked@6.0.0":
+    resolution:
+      {
+        integrity: sha512-jmjpa4BwUsmhxcfsgUit/7A9KbrC48Q0q8KvnY107ogcjGgTFDlIL3RpihNpx2Mu1hM4mdFQjoVc4O6JoGKHsA==,
+      }
+    deprecated: This is a stub types definition. marked provides its own type definitions, so you do not need this installed.
 
   "@types/mdast@4.0.4":
     resolution:
@@ -2113,6 +2126,14 @@ packages:
       {
         integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==,
       }
+
+  marked@17.0.1:
+    resolution:
+      {
+        integrity: sha512-boeBdiS0ghpWcSwoNm/jJBwdpFaMnZWRzjA6SkUMYb40SVaN1x7mmfGKp0jvexGcx+7y2La5zRZsYFZI6Qpypg==,
+      }
+    engines: { node: ">= 20" }
+    hasBin: true
 
   mdast-util-definitions@6.0.0:
     resolution:
@@ -4034,6 +4055,10 @@ snapshots:
     dependencies:
       "@types/unist": 3.0.3
 
+  "@types/marked@6.0.0":
+    dependencies:
+      marked: 17.0.1
+
   "@types/mdast@4.0.4":
     dependencies:
       "@types/unist": 3.0.3
@@ -4733,6 +4758,8 @@ snapshots:
       source-map-js: 1.2.1
 
   markdown-table@3.0.4: {}
+
+  marked@17.0.1: {}
 
   mdast-util-definitions@6.0.0:
     dependencies:

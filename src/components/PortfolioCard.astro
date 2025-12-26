@@ -1,0 +1,197 @@
+---
+interface Props {
+  id: string;
+  date: string;
+  dateDisplay?: string;
+  categories: string[];
+  title: string;
+  descriptionHtml: string;
+  link: string;
+  image?: string;
+  imageAlt?: string;
+  authors?: string[];
+  venue?: string;
+}
+
+const {
+  date,
+  dateDisplay,
+  categories,
+  title,
+  descriptionHtml,
+  link,
+  image,
+  imageAlt,
+  authors,
+  venue,
+} = Astro.props;
+
+// Use dateDisplay if provided, otherwise leave blank (date is only for sorting)
+const displayDate = dateDisplay || "";
+
+// Filter out Featured and All from displayed categories
+const displayCategories = categories.filter(
+  (c) => c.toLowerCase() !== "featured" && c.toLowerCase() !== "all",
+);
+---
+
+<article
+  data-categories={JSON.stringify(categories)}
+  class="flex flex-col bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 rounded-lg overflow-hidden"
+>
+  {
+    image && (
+      <div class="h-48 bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-3">
+        <img
+          src={image}
+          alt={imageAlt}
+          class="max-h-full max-w-full object-contain rounded"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+
+  <div class="flex flex-col grow p-4">
+    <div
+      class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400"
+    >
+      <div data-category-label class="flex gap-2 font-semibold">
+        {displayCategories.map((cat) => <span>{cat}</span>)}
+      </div>
+      {displayDate && <time datetime={date}>{displayDate}</time>}
+    </div>
+
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mt-1">
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:underline underline-offset-2 group
+               focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-500 rounded"
+      >
+        {title}<svg
+          class="inline-block w-4 h-4 ml-1.5 align-text-bottom -translate-y-0.5 opacity-60 group-hover:opacity-100 transition-opacity"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+          ><path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          ></path></svg
+        ><span class="sr-only">(opens in new tab)</span>
+      </a>
+    </h3>
+
+    {
+      authors && authors.length > 0 && (
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          {authors.join(", ")}
+        </p>
+      )
+    }
+
+    {
+      venue && (
+        <p class="text-sm text-gray-500 dark:text-gray-400 italic mt-1">
+          {venue}
+        </p>
+      )
+    }
+
+    <div class="description-wrapper">
+      <div
+        class="description-content overflow-hidden text-gray-600 dark:text-gray-300 mt-2 text-sm leading-relaxed
+               [&_a]:underline [&_a]:underline-offset-2 [&_a]:text-gray-700 dark:[&_a]:text-gray-200
+               [&_strong]:font-semibold [&_em]:italic [&_p]:mb-2 [&_p:last-child]:mb-0"
+        set:html={descriptionHtml}
+      />
+      <button
+        type="button"
+        class="show-more-btn hidden mt-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none"
+      >
+        Show more
+      </button>
+    </div>
+  </div>
+</article>
+
+<script>
+  // ===== CONFIGURATION =====
+  const LINE_HEIGHT_PX = 23; // Approximate line height for text-sm leading-relaxed
+  const MAX_VISIBLE_LINES = 8; // Lines shown before truncating
+  const TOLERANCE_LINES = 3; // Don't truncate if overflow is within this many lines
+  const MD_BREAKPOINT = 768; // Tailwind md breakpoint
+  // ==========================
+
+  const maxHeightPx = LINE_HEIGHT_PX * MAX_VISIBLE_LINES;
+  const tolerancePx = LINE_HEIGHT_PX * TOLERANCE_LINES;
+
+  function initDescriptionToggles() {
+    const wrappers = document.querySelectorAll(".description-wrapper");
+
+    wrappers.forEach((wrapper) => {
+      const content = wrapper.querySelector(
+        ".description-content",
+      ) as HTMLElement;
+      const button = wrapper.querySelector(
+        ".show-more-btn",
+      ) as HTMLButtonElement;
+
+      if (!content || !button) return;
+
+      // Skip if element is not visible (hidden by responsive classes)
+      // Hidden elements have scrollHeight/clientHeight of 0
+      if (content.offsetParent === null) return;
+
+      // Reset state for re-initialization after breakpoint change
+      content.style.maxHeight = `${maxHeightPx}px`;
+      button.classList.add("hidden");
+      button.textContent = "Show more";
+
+      const overflow = content.scrollHeight - content.clientHeight;
+      const isSignificantOverflow = overflow > tolerancePx;
+
+      if (isSignificantOverflow) {
+        button.classList.remove("hidden");
+
+        // Only add click listener once to prevent duplicates
+        if (!button.dataset.initialized) {
+          button.dataset.initialized = "true";
+          button.addEventListener("click", () => {
+            const isExpanded = content.style.maxHeight === "none";
+
+            if (isExpanded) {
+              content.style.maxHeight = `${maxHeightPx}px`;
+              button.textContent = "Show more";
+            } else {
+              content.style.maxHeight = "none";
+              button.textContent = "Show less";
+            }
+          });
+        }
+      } else if (overflow > 0) {
+        // Small overflow within tolerance - just show everything
+        content.style.maxHeight = "none";
+      }
+    });
+  }
+
+  // Track breakpoint to re-initialize when crossing md threshold
+  // This is needed because mobile/desktop grids are separate DOM elements
+  let lastWasMobile = window.innerWidth < MD_BREAKPOINT;
+
+  function handleResize() {
+    const isMobile = window.innerWidth < MD_BREAKPOINT;
+    if (isMobile !== lastWasMobile) {
+      lastWasMobile = isMobile;
+      initDescriptionToggles();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", initDescriptionToggles);
+  window.addEventListener("resize", handleResize);
+</script>

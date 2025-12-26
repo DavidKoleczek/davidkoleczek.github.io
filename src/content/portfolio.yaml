@@ -1,0 +1,415 @@
+# ===== Featured Projects =====
+
+- id: interop-router
+  date: "2025-12-23"
+  categories:
+    - Open Source
+    - Featured
+  title: "InteropRouter"
+  description: >-
+    InteropRouter is designed to seamlessly interoperate between the most common AI
+    providers at a high level of quality. It uses the OpenAI Responses API types as
+    a common denominator for inputs and outputs, allowing you to switch between
+    providers with minimal code changes.
+  link: https://github.com/DavidKoleczek/interop-router
+
+- id: eval-recipes
+  date: "2025-12-22"
+  categories:
+    - Featured
+    - Open Source
+  title: "Microsoft Eval Recipes"
+  description: >-
+    Eval Recipes is a library dedicated to making it easier to keep up with the 
+    state-of-the-art in evaluating AI agents. It currently has two main components: 
+    a benchmarking harness for evaluating CLI agents (GitHub Copilot CLI, Claude Code, etc) 
+    on real-world tasks via containers and an online evaluation framework for LLM chat assistants. 
+    The common thread between these components is the concept of
+    [recipes](https://sundaylettersfromsam.substack.com/p/what-is-an-ai-recipe) which are a 
+    mix of code and LLM calls to achieve a desired tradeoff between flexibility and quality.
+  link: https://github.com/microsoft/eval-recipes/
+  image: https://github.com/microsoft/eval-recipes/raw/main/demos/data/EvalRecipesAnimation.gif
+  imageAlt: Eval Recipes Online Evaluation Diagram
+
+- id: chat-context-toolkit
+  date: "2025-08-01"
+  categories:
+    - Featured
+    - Open Source
+  title: "Chat Context Toolkit"
+  description: |
+    The Chat Context Toolkit is a Python library, currently a part of Microsoft's Semantic Workbench designed to efficiently manage context for most AI agents.
+    Read more on [LinkedIn](https://www.linkedin.com/posts/david-koleczek_finally-someone-copied-us-today-anthropic-activity-7378560191925223424-Cb2U).
+
+    The chat context toolkit provides these three core, modular components:
+
+    Message History Management: Applies context engineering techniques to ensure that messages fit within a token budget.
+
+    Archive: A task for archiving and processing chunks of the message history that may no longer fit within a token budget to ensure older data can still be considered.
+
+    Virtual Filesystem: Creates a common abstraction for LLMs to read, edit, and explore files coming from a variety of disparate sources.
+  link: https://github.com/microsoft/semanticworkbench/tree/main/libraries/python/chat-context-toolkit
+  image: /portfolio/chat_context_toolkit.png
+  imageAlt: Chat Context Toolkit Message History Management Diagram
+
+- id: prompt-formatting-paper
+  date: "2024-11-14"
+  dateDisplay: "November 2024"
+  categories:
+    - Featured
+    - Publication
+  title: "Does Prompt Formatting Have Any Impact on LLM Performance?"
+  description: >-
+    In the realm of Large Language Models (LLMs), prompt optimization is crucial
+    for model performance. Although previous research has explored aspects like
+    rephrasing prompt contexts, using various prompting techniques (like in-context
+    learning and chain-of-thought), and ordering few-shot examples, our understanding
+    of LLM sensitivity to prompt templates remains limited. Therefore, this paper
+    examines the impact of different prompt templates on LLM performance. We formatted
+    the same contexts into various human-readable templates, including plain text,
+    Markdown, JSON, and YAML, and evaluated their impact across tasks like natural
+    language reasoning, code generation, and translation using OpenAI's GPT models.
+    Experiments show that GPT-3.5-turbo's performance varies by up to 40% in a code
+    translation task depending on the prompt template, while larger models like GPT-4
+    are more robust to these variations. Our analysis highlights the need to reconsider
+    the use of fixed prompt templates, as different formats can significantly affect
+    model performance.
+  link: https://arxiv.org/abs/2411.10541
+  image: /portfolio/does_prompt_formatting_have.png
+  imageAlt:
+    An example to demonstrate how prompt formatting impacts GPT-3.5-turbo-16k-0613
+    model's performance based on our experiments on multiple choice questions related
+    to international law from the MMLU benchmark
+  authors:
+    - Jia He
+    - Mukund Rungta
+    - David Koleczek
+    - Arshdeep Sekhon
+    - Franklin X Wang
+    - Sadid Hasan
+
+- id: mlfeed
+  date: "2019-05-01"
+  dateDisplay: "May 2019 - March 2023"
+  categories:
+    - Featured
+    - Project
+  title: "mlfeed.tech"
+  description: >-
+    An NLP-powered web application to automatically curate tweets 
+    from the machine learning community on Twitter.
+    The content was also reposted on Twitter.
+  link: https://x.com/mlfeedtech
+  image: /portfolio/mlfeedfeed.jpg
+  imageAlt: mlfeed.tech Feed Screenshot
+
+# ===== Open Source =====
+
+- id: microsoft-amplifier
+  date: "2025-12-21"
+  categories:
+    - Open Source
+  title: "Microsoft Amplifier"
+  description: >-
+    Amplifier brings AI assistance to your command line with a modular, extensible architecture.
+    My contributions include evaluation and building out core provider modules.
+  link: https://github.com/microsoft/amplifier
+
+- id: semantic-workbench-document-assistant
+  date: "2025-09-01"
+  categories:
+    - Open Source
+  title: "Semantic Workbench Document Assistant"
+  description: >-
+    The Document Assistant is an AI assistant in Microsoft's Semantic Workbench 
+    focused on being easy to use for everyone with a core feature being reliable 
+    document creation and editing, grounded in all of your context across files and the conversation.
+  link: https://github.com/microsoft/semanticworkbench/tree/main/assistants/document-assistant
+
+- id: not-again-ai
+  date: "2025-07-01"
+  categories:
+    - Open Source
+  title: "not-again-ai"
+  description: >-
+    not-again-ai is a collection of various building blocks that come up over and over again when developing AI products. 
+    The key goals of this package are to have simple, yet flexible interfaces and to minimize dependencies.
+  link: https://github.com/DaveCoDev/not-again-ai
+
+- id: guided-conversation
+  date: "2024-07-01"
+  categories:
+    - Open Source
+  title: "Guided Conversations"
+  description: >-
+    Guided Conversations is a framework in Semantic Kernel for building AI agents that 
+    lead goal-driven conversations with defined constraints, where the agent initiates dialogue, 
+    follows a structured conversation flow, exercises judgment to stay on track, 
+    and generates artifacts like notes and forms throughout the interaction. 
+    Common use cases include teaching scenarios, customer service interactions, 
+    and any situation where a "creator" defines conversation goals and 
+    collects information semi-autonomously through an AI assistant.
+  link: https://github.com/microsoft/semantic-kernel/tree/main/python/samples/demos/guided_conversations
+
+# ===== Publications =====
+
+- id: pcl-semeval-2022
+  date: "2022-07-14"
+  dateDisplay: "July 2022"
+  categories:
+    - Publication
+  title: "UMass PCL at SemEval-2022 Task 4: Pre-trained Language Model Ensembles for Detecting Patronizing and Condescending Language"
+  authors:
+    - David Koleczek
+    - Alex Scarlatos
+    - Siddha Karakare
+    - Preshma Linet Pereira
+  venue: The 16th International Workshop on Semantic Evaluation (SemEval-2022)
+  description: >-
+    Patronizing and condescending language (PCL) is everywhere, but rarely is the focus on its use by media towards vulnerable communities. 
+    Accurately detecting PCL of this form is a difficult task due to limited labeled data and how subtle it can be. 
+    In this paper, we describe our system for detecting such language which was submitted to 
+    SemEval 2022 Task 4: Patronizing and Condescending Language Detection. 
+    Our approach uses an ensemble of pre-trained language models, data augmentation, 
+    and optimizing the threshold for detection. Experimental results on the evaluation 
+    dataset released by the competition hosts show that our work is reliably able to detect PCL, 
+    achieving an F1 score of 55.47% on the binary classification task and a macro F1 
+    score of 36.25% on the fine-grained, multi-label detection task.
+  link: https://arxiv.org/abs/2204.08304
+
+- id: shared-autonomy-aaai
+  date: "2022-02-22"
+  dateDisplay: "February 2022"
+  categories:
+    - Publication
+  title: "On Optimizing Interventions in Shared Autonomy"
+  description: >-
+    Shared autonomy refers to approaches for enabling an autonomous agent to collaborate
+    with a human with the aim of improving human performance. However, besides improving
+    performance, it may often also be beneficial that the agent concurrently accounts for
+    preserving the user's experience or satisfaction of collaboration. We propose two
+    model-free reinforcement learning methods that can account for both hard and soft
+    constraints on the number of interventions. We show that not only does our method
+    outperform the existing baseline, but also eliminates the need to manually tune a
+    black-box hyperparameter for controlling the level of assistance.
+    Code available at: [https://github.com/DavidKoleczek/human_marl](https://github.com/DavidKoleczek/human_marl)
+  link: https://ojs.aaai.org/index.php/AAAI/article/view/20471
+  authors:
+    - Weihao Tan
+    - David Koleczek
+    - Siddhant Pradhan
+    - Nicholas Perello
+    - Vivek Chettiar
+    - Nan Ma
+    - Aaslesha Rajaram
+    - Vishal Rohra
+    - Soundar Srinivasan
+    - H M Sajjad Hossain
+    - Yash Chandak
+  venue: Thirty-Sixth AAAI Conference on Artificial Intelligence (AAAI 2022)
+
+- id: shared-autonomy-icml
+  date: "2021-07-18"
+  dateDisplay: "July 2021"
+  categories:
+    - Publication
+  title: "Intervention Aware Shared Autonomy"
+  description: >-
+    Shared autonomy refers to approaches for enabling an autonomous agent to collaborate
+    with a human with the aim of improving human performance. However, besides improving
+    performance, it may often be beneficial that the agent concurrently accounts for
+    preserving the user's experience or satisfaction of collaboration. We propose two
+    model-free reinforcement learning methods that can account for both hard and soft
+    constraints on the number of interventions.
+  link: https://all.cs.umass.edu/pubs/2021/Tan%20et%20al%20-%20Intervention%20Aware%20Shared%20Autonomy.pdf
+  authors:
+    - Weihao Tan
+    - David Koleczek
+    - Siddhant Pradhan
+    - Nicholas Perello
+    - Vivek Chettiar
+    - Nan Ma
+    - Aaslesha Rajaram
+    - Vishal Rohra
+    - Soundar Srinivasan
+    - H M Sajjad Hossain
+    - Yash Chandak
+  venue: HumanAI workshop @ Thirty-eighth International Conference on Machine Learning (ICML 2021)
+
+# ===== Projects =====
+
+- id: tinker-tasker
+  date: "2025-07-02"
+  dateDisplay: "July 2025"
+  categories:
+    - Project
+  title: "TinkerTasker"
+  description: >-
+    TinkerTasker is an open-source and local first CLI agent similar to the likes of Claude Code and Codex.
+    It's a project that allowed me to focus on teaching about important AI tech like the Model Context Protocol (MCP),
+    while also still having unique aspects: namely it is fully hackable by being simple and modular
+    and I developed it to run completely locally without any APIs at all.
+  link: https://github.com/DaveCoDev/TinkerTasker
+  image: https://github.com/DaveCoDev/TinkerTasker/raw/main/assets/demo.gif
+  imageAlt: TinkerTasker Demo GIF
+
+- id: redoodle
+  date: "2024-12-01"
+  dateDisplay: "December 2024"
+  categories:
+    - Project
+  title: "ReDoodle"
+  description: >-
+    ReDoodle is a "daily" web puzzle game where you are given a starting image, 
+    and your goal is to transform it into a goal image through a series of prompts.
+  link: https://github.com/DaveCoDev/ReDoodle
+  image: /portfolio/ReDoodle.png
+  imageAlt: ReDoodle Game Screenshot
+
+# ===== Game Dev =====
+
+- id: trash-dash
+  date: "2025-10-01"
+  dateDisplay: "October 2025"
+  categories:
+    - Game Dev
+  title: "Trash Dash"
+  description: >-
+    A game where you knock pieces of trash into the air and collect them in your dump truck.
+    Avoid the obstacles and get a high score! 
+    Built for [Ludum Dare 58](https://ldjam.com/events/ludum-dare/58/trash-dash).
+  link: https://unitedfailures.itch.io/trash-dash
+  image: /portfolio/trash_dash.png
+  imageAlt: Trash Dash Cover Image
+
+- id: diggity-diggity-diggity-dash
+  date: "2025-04-01"
+  dateDisplay: "April 2025"
+  categories:
+    - Game Dev
+  title: "Diggity Diggity Diggity (Dash)"
+  description: |
+    DIGGITY DIGGITY DIGGITY ITS TIME TO GO RACING IN THE DEPTHS OF MOLE HILLS!!!
+
+    You are a mole who is in D.O.W.N.S.P.E.E.D.
+    (Digging Operators with Notable Speed Pioneering Earth Excavation & Depth). 
+    Your goal is to win the championship and take home the cup!
+    Built for [Ludum Dare 57](https://ldjam.com/events/ludum-dare/57/diggity-diggity-diggity-dash).
+  link: https://unitedfailures.itch.io/diggity-diggity-diggity-dash
+  image: /portfolio/diggity_diggity_diggity.png
+  imageAlt: Diggity Diggity Diggity Dash Cover Image
+
+- id: bacteria-bashers
+  date: "2024-10-01"
+  dateDisplay: "October 2024"
+  categories:
+    - Game Dev
+  title: "Bacteria Bashers"
+  description: >-
+    Use your tiny bacteria to fight foes and grow into something bigger than the sum of your tiny parts!
+    Built for [Ludum Dare 56](https://ldjam.com/events/ludum-dare/56/bacteria-bashers).
+  link: https://unitedfailures.itch.io/bacteria-bashers
+  image: /portfolio/bacteria_bashers2.png
+  imageAlt: Bacteria Bashers Cover Image
+
+- id: soul-food
+  date: "2024-04-01"
+  dateDisplay: "April 2024"
+  categories:
+    - Game Dev
+  title: "Soul Food"
+  description: >-
+    Soul Food is a game where you summon monsters to satiate your hungry customers!
+    Built for [Ludum Dare 55](https://ldjam.com/events/ludum-dare/55/soul-food).
+  link: https://unitedfailures.itch.io/soul-food
+  image: /portfolio/soul_food.png
+  imageAlt: Soul Food Cover Image
+
+- id: societies-stranding
+  date: "2023-10-01"
+  dateDisplay: "October 2023"
+  categories:
+    - Game Dev
+  title: "Societies Stranding"
+  description: >-
+    Societies around the galaxy are running out of space. 
+    You are the last hope to delay the stranding. 
+    Deliver pods from overpopulated planets (denoted with a red icon) to growing planets (denoted with blue icons). 
+    Get a high score before all the planets run out of space! Built for [Ludum Dare 54](https://ldjam.com/events/ludum-dare/54/societies-stranding).
+  link: https://unitedfailures.itch.io/societies-stranding
+  image: /portfolio/societies_stranding.png
+  imageAlt: Societies Stranding Cover Image
+
+- id: courier-crusaders
+  date: "2023-05-01"
+  dateDisplay: "May 2023"
+  categories:
+    - Game Dev
+  title: "Courier Crusaders"
+  description: >-
+    Enter a realm of magical deliveries in this fantasy RPG management game. 
+    Assemble your elite team of couriers and strive to thrive in the cutthroat world of delivery services.
+    Built for [Ludum Dare 53](https://ldjam.com/events/ludum-dare/53/courier-crusaders).
+  link: https://unitedfailures.itch.io/ludum-dare-53
+  image: /portfolio/courier_crusaders.png
+  imageAlt: Courier Crusaders Cover Image
+
+- id: barn-busters
+  date: "2023-01-01"
+  dateDisplay: "January 2023"
+  categories:
+    - Game Dev
+  title: "Barn Busters"
+  description: >-
+    Barn Busters is a physics based tower defense game inspired by Fall Guys, built for [Ludum Dare 52](https://ldjam.com/events/ludum-dare/52/barn-busters).
+    Placed in the top 20 for both innovation and fun and in the top 10% overall out of over 1,000 submissions.
+  link: https://unitedfailures.itch.io/barn-busters
+  image: /portfolio/barn_busters.png
+  imageAlt: Barn Busters Cover Image
+
+- id: big-block-mode
+  date: "2022-10-01"
+  dateDisplay: "October 2022"
+  categories:
+    - Game Dev
+  title: "Big Block Mode"
+  description: >-
+    Big Block Mode is another take on the classic tetromino puzzler, built for [Ludum Dare 51](https://ldjam.com/events/ludum-dare/51/big-block-mode).
+    Placed 67th for Innovation and in the top 20% overall.
+  link: https://unitedfailures.itch.io/big-block-mode
+  image: /portfolio/big_block_mode.png
+  imageAlt: Big Block Mode Cover Image
+
+- id: cabbage-crashers
+  date: "2022-04-01"
+  dateDisplay: "April 2022"
+  categories:
+    - Game Dev
+  title: "Cabbage Crashers"
+  description: >-
+    Cabbage Crashers is a cabbage farming simulation game built for [Ludum Dare 50](https://ldjam.com/events/ludum-dare/50/cabbage-crashers).
+  link: https://unitedfailures.itch.io/cabbage-crashers
+  image: /portfolio/cabbage_crashers.png
+  imageAlt: Cabbage Crashers Cover Image
+
+# ===== Patents =====
+
+- id: patent-gce
+  date: "2025-12-11"
+  dateDisplay: "December 2025"
+  categories:
+    - Patent
+  title: "US Patent Application US-20250378320-A1"
+  description: >-
+    US Patent Application US-20250378320-A1 - "GENERATIVE AGENT GUIDED CONVERSATIONS FOR ARTIFACT COMPLETION" (Pending)
+  link: https://patents.google.com/patent/US20250378320A1/
+
+- id: patent-kge
+  date: "2025-04-24"
+  dateDisplay: "April 2025"
+  categories:
+    - Patent
+  title: "US Patent Application US-20250131289-A1"
+  description: >-
+    US Patent Application US-20250131289-A1 - "Knowledge Graph Extraction" (Pending)
+  link: https://patents.google.com/patent/US20250131289A1/

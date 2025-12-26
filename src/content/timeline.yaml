@@ -1,0 +1,56 @@
+- id: microsoft
+  dateRange: "2022 -"
+  logo: /logos/microsoft.svg
+  logoAlt: Microsoft
+  logoWidth: normal
+  title: Senior Applied Scientist
+  description: >-
+    I started at Microsoft as an Applied Scientist in the MAIDAP program
+    where I helped lead efforts to open-source a "Guided Conversations"
+    agent framework as a demo in Semantic Kernel, create Loop Copilot,
+    advance Copilot technology for Microsoft Federal, and automated
+    cloud incident root cause analysis for Azure. Then as a member of
+    the AI team for Microsoft Loop, I helped develop features for
+    Copilot Pages such as being able to edit pages from Copilot Chat.
+    And finally I am in my current role in the Office of the CTO.
+
+- id: massmutual
+  dateRange: "2020 - 2022"
+  logo: /logos/massmutual.svg
+  logoAlt: MassMutual
+  logoWidth: normal
+  title: Data Scientist
+  description: >-
+    I was a Data Scientist at MassMutual as a member of the Data Science
+    Development Program, working on various projects in Investment &
+    Finance and Cybersecurity & Fraud. I completed my Master's in CS
+    at this time as well.
+
+- id: masters
+  dateRange: "2020 - 2022"
+  logo: /logos/Manning_CICS-horiz-WEB.jpg
+  logoDark: /logos/Manning_CICS-horiz-REV.svg
+  logoAlt: UMass Amherst Manning College of Information and Computer Sciences
+  logoWidth: wide
+  title: M.S. Computer Science
+
+- id: iso-new-england
+  dateRange: "2017 - 2020"
+  logo: /logos/ISO_New_England.svg.png
+  logoAlt: ISO New England
+  logoWidth: normal
+  title: Data Science Intern
+  description: >-
+    I was an intern in the Day-Ahead Forecasting and Related Markets
+    team at ISO New England. I worked on a variety of projects,
+    including a machine learning system to forecast day ahead energy
+    demand. As of August 2021, it is being used as part of daily
+    electric grid operations for the entire New England electric grid!
+
+- id: bachelors
+  dateRange: "2016 - 2020"
+  logo: /logos/Manning_CICS-horiz-WEB.jpg
+  logoDark: /logos/Manning_CICS-horiz-REV.svg
+  logoAlt: UMass Amherst Manning College of Information and Computer Sciences
+  logoWidth: wide
+  title: B.S. Computer Science

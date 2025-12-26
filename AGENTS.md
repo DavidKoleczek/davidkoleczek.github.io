@@ -7,6 +7,10 @@ It is built using Astro, a JavaScript web framework optimized for building fast,
 
 - The package.json is provided to you. You must generate code that aligns with the versions of the dependencies specified there.
 - Use pnpm over npm.
+- The app/website must be accessible on a wide range of devices from mobile to desktop.
+- The app must support dark and light mode. It default to system preference, but allow for a manual override that is saved in local storage.
+- It should be made accessible for all users.
+- Assume that `pnpm dev` is already running and the user can see the app at `localhost:4321`.
 
 # Rules
 

@@ -1,0 +1,54 @@
+---
+interface Props {
+  showPhoto?: boolean;
+}
+
+const { showPhoto = false } = Astro.props;
+---
+
+<header
+  class="flex flex-col items-center sm:flex-row sm:items-center gap-4 mb-8"
+>
+  {
+    showPhoto && (
+      <img
+        src="/me.jpg"
+        alt="David Koleczek"
+        class="w-36 h-36 rounded-full object-cover"
+      />
+    )
+  }
+  <div class="flex flex-col items-center sm:items-start gap-2">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+      David Koleczek
+    </h1>
+    <nav class="flex flex-wrap gap-4" aria-label="Main navigation">
+      <a
+        href="/"
+        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:underline underline-offset-4"
+      >
+        About
+      </a>
+      <a
+        href="/contact"
+        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:underline underline-offset-4"
+      >
+        Contact
+      </a>
+      <a
+        href="/blog"
+        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:underline underline-offset-4"
+      >
+        Blog
+      </a>
+      <a
+        href="https://github.com/DavidKoleczek"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:underline underline-offset-4"
+      >
+        GitHub
+      </a>
+    </nav>
+  </div>
+</header>
