@@ -105,6 +105,26 @@
 
 # ===== Open Source =====
 
+- id: agent-core
+  date: "2026-01-11"
+  categories:
+    - Open Source
+  title: "agent-core"
+  description: >-
+    agent-core is a Python library providing common building blocks for creating AI agents.
+    It uses InteropRouter as a unified interface for managing different AI model providers.
+  link: https://github.com/DavidKoleczek/agent-core
+
+- id: agent-tui
+  date: "2026-01-11"
+  categories:
+    - Open Source
+  title: "agent-tui"
+  description: >-
+    agent-tui is a terminal user interface for AI agents built with Textual.
+    It is built on top of agent-core and InteropRouter.
+  link: https://github.com/DavidKoleczek/agent-tui
+
 - id: microsoft-amplifier
   date: "2025-12-21"
   categories:
