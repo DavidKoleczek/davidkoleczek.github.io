@@ -1,4 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
+import { z } from "astro/zod";
 import { glob, file } from "astro/loaders";
 
 const bio = defineCollection({
@@ -29,14 +30,14 @@ const portfolio = defineCollection({
       categories: z.array(z.string()).min(1),
       title: z.string(),
       description: z.string(), // Markdown content
-      link: z.string().url(),
+      link: z.url(),
       image: z.string().optional(),
       imageAlt: z.string().optional(),
       authors: z.array(z.string()).optional(),
       venue: z.string().optional(),
     })
     .refine((data) => !data.image || data.imageAlt, {
-      message: "imageAlt is required when image is provided",
+      error: "imageAlt is required when image is provided",
     }),
 });
 
